@@ -11,8 +11,7 @@ public class Exercise6 {
         System.out.println(salariedEmployee);
         System.out.println(commissionEmployee);
 
-        // nu am facut 6 pentru ca mi se parea nenecesar
-        Employee[] employees = {hourlyEmployee, salariedEmployee, commissionEmployee};
+        Employee[] employees = {hourlyEmployee, hourlyEmployee, salariedEmployee, salariedEmployee, commissionEmployee, commissionEmployee};
 
         System.out.println("The total payment amount is: " + getTotalPaymentAmount(employees));
     }
