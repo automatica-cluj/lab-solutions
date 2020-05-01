@@ -31,3 +31,9 @@ hs_err_pid*
 
 # iml files from each project
 **/*.iml
+
+# .data / .enc .dec files and data folder
+**/*.data
+**/*.enc
+**/*.dec
+data

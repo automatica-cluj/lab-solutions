@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>isp-lab-9</groupId>
+    <artifactId>isp-lab-9</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>TemplateLab</name>
+
+    <description>Example of super pom for Java application development for software engineering classes.</description>
+
+    <developers>
+        <developer>
+            <id>8888888</id>
+            <name>Student Name</name>
+            <email>student@emailaddress.com</email>
+        </developer>
+    </developers>
+	
+    <organization>
+        <name>Technical University of Cluj-Napoca</name>
+    </organization>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- class that has the main method -->
+        <mainClass>isp.lab7.Example</mainClass>
+        <!-- name appended to standard jar name to indicate shaded/executable version -->
+        <shadedClassifierName>executable</shadedClassifierName>
+        <junit-version>4.12</junit-version>
+        <java.compile-verison>1.8</java.compile-verison>
+        <slf4j-version>1.7.25</slf4j-version>
+    </properties>
+
+    <dependencies>
+        <!-- Everyone needs a logger -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j-version}</version>
+        </dependency>
+
+        <!-- Unit testing is mandatory -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit-version}</version>
+            <!-- only to be used during test phase -->
+            <!-- will not be included in executable jar -->
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.easymock/easymock -->
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+            <version>4.2</version>
+            <scope>test</scope>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <!-- Goals may be set in the IDE or the pom -->
+        <!-- IDE goals override the defaultGoal -->
+        <defaultGoal>clean compile package exec:java</defaultGoal> 
+        <plugins>
+            <plugin>
+                <!-- Select the version of the compiler and binary file -->
+                <!-- format of the classfiles -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${java.compile-verison}</source>
+                    <target>${java.compile-verison}</target>
+                    <!-- sometimes the IDE does not reveal all the important warning -->
+                    <compilerArgument>-Xlint:all</compilerArgument>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <!-- shade creates an executable jar with the main class -->
+                <!-- showing in the manifest file -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.3</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <shadedClassifierName>${shadedClassifierName}</shadedClassifierName> 
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <transformers>
+                                <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>${mainClass}</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <!-- executes the program -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.3.1</version>
+                <executions>
+                    <execution>
+                        <id>default-cli</id>
+                        <goals>
+                            <!-- java runs the code from the main class -->
+                            <goal>java</goal> 
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- used by java goal -->
+                    <mainClass>${mainClass}</mainClass>
+                    <!-- used by exec goal -->
+                    <executable>${java.home}/bin/java</executable>
+                    <commandlineArgs>-jar ${project.build.directory}/${project.build.finalName}-${shadedClassifierName}.jar arg1 arg2</commandlineArgs>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <!-- Executes JUnit tests and writes the results as an xml and txt file -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.17</version>
+            </plugin>
+			
+			<plugin>
+				<groupId>com.rimerosolutions.maven.plugins</groupId>
+				<artifactId>wrapper-maven-plugin</artifactId>
+				<version>0.0.4</version>
+				<configuration>
+					<mavenVersion>3.3.1</mavenVersion>
+				</configuration>
+			</plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.1.1</version>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>
