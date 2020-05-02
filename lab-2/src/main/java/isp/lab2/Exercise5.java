@@ -1,5 +1,6 @@
 package isp.lab2;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Exercise5 {
@@ -40,19 +41,10 @@ public class Exercise5 {
 
     public static void main(String[] args) {
         int[] randomNumbers = generateRandomNumbers();
-        // display the random generated numbers
         System.out.println("The random generated numbers are:");
-        for (int randomNumber : randomNumbers) {
-            System.out.print(randomNumber + ", ");
-        }
-        System.out.println("\n");
+        System.out.println(Arrays.toString(randomNumbers));
 
-        int[] sortedNumbers = getSortedNumbers(randomNumbers);
-        // display the sorted numbers
         System.out.println("The sorted numbers are:");
-        for (int sortedNumber : sortedNumbers) {
-            System.out.print(sortedNumber + ", ");
-        }
+        System.out.println(Arrays.toString(getSortedNumbers(randomNumbers)));
     }
-
 }
