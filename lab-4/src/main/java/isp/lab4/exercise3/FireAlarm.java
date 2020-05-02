@@ -1,4 +1,4 @@
-package isp.lab4.exercise2;
+package isp.lab4.exercise3;
 
 public class FireAlarm {
     private boolean active;

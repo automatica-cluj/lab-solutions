@@ -6,6 +6,8 @@ public class Exercise5 {
         Controller controller = new Controller();
         House house = new House(controller);
 
+        System.out.println(house.getController().getFireAlarm().isActive());
         house.getController().controlStep();
+        System.out.println(house.getController().getFireAlarm().isActive());
     }
 }

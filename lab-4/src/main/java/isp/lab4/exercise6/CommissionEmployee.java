@@ -2,8 +2,8 @@ package isp.lab4.exercise6;
 
 public class CommissionEmployee extends Employee {
 
-    private double grossSales;
-    private double commissionSales;
+    private final double grossSales;
+    private final double commissionSales;
 
     public CommissionEmployee(String firstName, String lastName, double grossSales, double commissionSales) {
         super(firstName, lastName);

@@ -1,8 +1,11 @@
 package isp.lab4.exercise6;
 
+/**
+ * Superclass for all employees
+ */
 public class Employee {
-    private String firstName;
-    private String lastName;
+    private final String firstName;
+    private final String lastName;
 
     public Employee(String firstName, String lastName) {
         this.firstName = firstName;

@@ -1,34 +1,39 @@
 package isp.lab4.exercise5;
 
-import isp.lab4.exercise1.TemperatureSensor;
-import isp.lab4.exercise2.FireAlarm;
-
 public class Controller {
+    private static final int NR_OF_SENSORS = 3;
 
-    private TemperatureSensor[] temperatureSensors = new TemperatureSensor[3];
-    private FireAlarm fireAlarm;
+    private final TemperatureSensor[] temperatureSensors = new TemperatureSensor[NR_OF_SENSORS];
+    private final FireAlarm fireAlarm;
 
+
+    /**
+     * Constructor that initialize the controller with "NR_OF_SENSORS" {@link TemperatureSensor}s and a {@link FireAlarm}
+     */
     public Controller() {
-        TemperatureSensor temperatureSensor1, temperatureSensor2, temperatureSensor3;
-        temperatureSensor1 = new TemperatureSensor(23, "some-room");
-        temperatureSensor2 = new TemperatureSensor(30, "some-other-room");
-        temperatureSensor3 = new TemperatureSensor(4, "some-fridge");
-
-        this.temperatureSensors[0] = temperatureSensor1;
-        this.temperatureSensors[1] = temperatureSensor2;
-        this.temperatureSensors[2] = temperatureSensor3;
+        for (int i = 0; i < NR_OF_SENSORS; i++) {
+            this.temperatureSensors[i] = new TemperatureSensor(30 * i, "room " + i);
+        }
         this.fireAlarm = new FireAlarm(false);
     }
 
+    public FireAlarm getFireAlarm() {
+        return fireAlarm;
+    }
+
+    /**
+     * Handle system functionality<br>
+     * If any sensor's value is greater than 50 then the alarm will be ON otherwise OFF
+     */
     public void controlStep() {
         for (TemperatureSensor temperatureSensor : this.temperatureSensors) {
             if (temperatureSensor.getValue() > 50) {
                 this.fireAlarm.setActive(true);
-                System.out.println(this.fireAlarm);
+                System.out.println("Fire alarm started");
                 return;
             }
         }
         this.fireAlarm.setActive(false);
-        System.out.println(this.fireAlarm);
+        System.out.println("Fire alarm not started");
     }
 }

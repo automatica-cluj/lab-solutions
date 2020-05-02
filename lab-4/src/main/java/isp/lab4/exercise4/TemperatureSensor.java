@@ -1,4 +1,4 @@
-package isp.lab4.exercise1;
+package isp.lab4.exercise4;
 
 public class TemperatureSensor {
     private int value;
@@ -23,10 +23,6 @@ public class TemperatureSensor {
 
     public int getValue() {
         return value;
-    }
-
-    public String getLocation() {
-        return location;
     }
 
     @Override

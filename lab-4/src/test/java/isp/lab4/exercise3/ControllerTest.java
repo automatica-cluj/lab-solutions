@@ -1,46 +1,49 @@
 package isp.lab4.exercise3;
 
-import isp.lab4.exercise1.TemperatureSensor;
-import isp.lab4.exercise2.FireAlarm;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-/**
- * This class tests more than just the {@link Controller}
- */
 public class ControllerTest {
 
+    // NOTE: The tests for generated methods are omitted because are the same as for exercise 1 and exercise 2
 
-    /**
-     * This method test more than just the controlStep()
-     */
     @Test
-    public void testControlStep() {
-        Controller controller = new Controller();
-
+    public void testControlStepWhenTemperatureSensorValueIsLowerThan50() {
+        // given
         FireAlarm fireAlarm = new FireAlarm(false);
-        assertFalse(fireAlarm.isActive());
-
         TemperatureSensor temperatureSensor = new TemperatureSensor(24, "living-room");
-        assertEquals(24, temperatureSensor.getValue(),0.1);
-        assertEquals("living-room", temperatureSensor.getLocation());
-
+        Controller controller = new Controller();
         controller.setFireAlarm(fireAlarm);
         controller.setTemperatureSensor(temperatureSensor);
 
-        assertFalse(fireAlarm.isActive());
+        //pre assert
+        assertFalse("The fire alarm should be OFF because no change was made", fireAlarm.isActive());
+
+        //when
         controller.controlStep();
-        assertFalse(fireAlarm.isActive());
 
-        TemperatureSensor temperatureSensor1 = new TemperatureSensor(64, "bath-room");
-        assertEquals(64, temperatureSensor1.getValue(),0.1);
-        assertEquals("bath-room", temperatureSensor1.getLocation());
+        //post assert
+        assertFalse("The fire alarm should be OFF because the value of the temperature sensor is lower than 50", fireAlarm.isActive());
+    }
 
-        controller.setTemperatureSensor(temperatureSensor1);
+    @Test
+    public void testControlStepWhenTemperatureSensorValueIsGreaterThan50() {
+        // given
+        FireAlarm fireAlarm = new FireAlarm(false);
+        TemperatureSensor temperatureSensor = new TemperatureSensor(64, "bath-room");
+        Controller controller = new Controller();
+        controller.setFireAlarm(fireAlarm);
+        controller.setTemperatureSensor(temperatureSensor);
 
-        assertFalse(fireAlarm.isActive());
+        //pre assert
+        assertFalse("The fire alarm should be OFF because no change was made", fireAlarm.isActive());
+
+        //when
         controller.controlStep();
-        assertTrue(fireAlarm.isActive());
+
+        //post assert
+        assertTrue("The fire alarm should be ON because the value of the temperature sensor is greater than 50", fireAlarm.isActive());
     }
 }
