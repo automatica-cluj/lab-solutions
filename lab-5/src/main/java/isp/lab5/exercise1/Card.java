@@ -1,7 +1,7 @@
 package isp.lab5.exercise1;
 
 public class Card {
-    private String cardId;
+    private final String cardId;
     private String pin;
 
     public Card(String cardId, String pin) {
@@ -11,10 +11,6 @@ public class Card {
 
     public String getCardId() {
         return cardId;
-    }
-
-    public void setCardId(String cardId) {
-        this.cardId = cardId;
     }
 
     public String getPin() {

@@ -1,12 +1,9 @@
 package isp.lab5.exercise1;
 
 public class Account {
-    private Card card;
-    private String owner;
+    private final Card card;
+    private final String owner;
     private double balance;
-
-    public Account() {
-    }
 
     public Account(Card card, String owner, double balance) {
         this.card = card;
@@ -16,18 +13,6 @@ public class Account {
 
     public Card getCard() {
         return card;
-    }
-
-    public void setCard(Card card) {
-        this.card = card;
-    }
-
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
     }
 
     public double getBalance() {
