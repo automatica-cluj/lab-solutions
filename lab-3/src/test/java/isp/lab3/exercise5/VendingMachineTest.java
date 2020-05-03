@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 
 public class VendingMachineTest {
 
-    VendingMachine vendingMachine;
+    private VendingMachine vendingMachine;
 
     @Before
     public void setUp() {
@@ -17,9 +17,9 @@ public class VendingMachineTest {
 
     @Test
     public void testConstructor() {
-        assertEquals("The credit should be 0 at creation of vending machine", 0, vendingMachine.displayCredit(), 0.01);
+        assertEquals("The credit should be 0 at creation of vending machine", 0, vendingMachine.displayCredit(), 0);
         assertArrayEquals("The following products should be in vending machine \"Cola\", \"Sprite\", \"Fanta\", \"Mirinda\", \"Schweppes\"", new String[]{"Cola", "Sprite", "Fanta", "Mirinda", "Schweppes"}, vendingMachine.getProducts());
-        assertArrayEquals("The following prices should be in vending machine \"4.00\", \"4.50\", \"4.50\", \"3.50\", \"5.00\"", new double[]{4.00D, 4.50D, 4.50D, 3.50D, 5.00D}, vendingMachine.getPrices(), 0.01);
+        assertArrayEquals("The following prices should be in vending machine \"4.00\", \"4.50\", \"4.50\", \"3.50\", \"5.00\"", new double[]{4.00D, 4.50D, 4.50D, 3.50D, 5.00D}, vendingMachine.getPrices(), 0);
     }
 
     @Test

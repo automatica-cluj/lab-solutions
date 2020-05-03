@@ -10,7 +10,7 @@ public class MyPointTest {
 
 
     @Before
-    public void setUP() {
+    public void setUp() {
         point = new MyPoint(2, 3, 4);
 
     }
@@ -39,13 +39,13 @@ public class MyPointTest {
 
     @Test
     public void testDistance() {
-        assertEquals("The distance between the current point and the given coordinates should be 5.196",5.196, point.distance(5, 6, 7), 0.001);
+        assertEquals("The distance between the current point and the given coordinates should be 5.196", 5.196, point.distance(5, 6, 7), 0);
 
     }
 
     @Test
     public void testDistance1() {
-        assertEquals("The distance between the current point and another point should be 5.196",5.196, point.distance(new MyPoint(5, 6, 7)), 0.001);
+        assertEquals("The distance between the current point and another point should be 5.196", 5.196, point.distance(new MyPoint(5, 6, 7)), 0);
     }
 
     @Test

@@ -7,10 +7,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 public class TemperatureSensorTest {
-    TemperatureSensor temperatureSensor;
+    private TemperatureSensor temperatureSensor;
 
     @Before
-    public void setUP() {
+    public void setUp() {
         temperatureSensor = new TemperatureSensor(25, "kitchen");
     }
 

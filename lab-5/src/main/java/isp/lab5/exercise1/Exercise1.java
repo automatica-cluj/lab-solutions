@@ -8,7 +8,7 @@ public class Exercise1 {
         atm.withdraw(500.00);
         atm.changePin("asd", "as");
 
-        if (atm.insertCard(new Card(1 + "", 2 + ""), 2 + "")) {
+        if (atm.insertCard(new Card("1", "2"), "2")) {
             atm.checkMoney();
             atm.withdraw(500.00);
             atm.withdraw(2000.00);
@@ -28,7 +28,7 @@ public class Exercise1 {
     protected static Atm initializeAtm() {
         Account[] accounts = new Account[10];
         for (int i = 0; i < accounts.length; i++) {
-            accounts[i] = new Account(new Card(i + "", 2 * i + ""), "Owner" + i, 1000D * i);
+            accounts[i] = new Account(new Card(String.valueOf(i), String.valueOf(2 * i)), "Owner " + i, 1000D * i);
         }
         Bank bank = new Bank(accounts);
         return new Atm(bank);

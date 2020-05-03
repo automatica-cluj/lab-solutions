@@ -28,7 +28,7 @@ public class AtmTest {
     }
 
     @After
-    public void restoreStreams() {
+    public void tearDown() {
         System.setOut(originalOut);
     }
 
@@ -40,22 +40,16 @@ public class AtmTest {
 
     @Test
     public void testChangePinWhenCardInsertedAndWrongOldPin() {
-        if (atm.insertCard(new Card("1", "2"), "2")) {
-            atm.changePin("0", NEW_PIN);
-            assertEquals("There should be an error that the old pin is not the same as entered pin", "The old pin do not match the existing pin", outContent.toString().trim());
-        } else {
-            fail(CARD_SHOULD_BE_INTRODUCE_MESSAGE);
-        }
+        assertTrue(CARD_SHOULD_BE_INTRODUCE_MESSAGE, atm.insertCard(new Card("1", "2"), "2"));
+        atm.changePin("0", NEW_PIN);
+        assertEquals("There should be an error that the old pin is not the same as entered pin", "The old pin do not match the existing pin", outContent.toString().trim());
     }
 
     @Test
     public void testChangePinWhenCardInsertedAndGoodOldPin() {
-        if (atm.insertCard(new Card("1", "2"), "2")) {
-            atm.changePin("2", NEW_PIN);
-            assertEquals("There should be an success message as ping changed successfully", "Pin changed successfully", outContent.toString().trim());
-        } else {
-            fail(CARD_SHOULD_BE_INTRODUCE_MESSAGE);
-        }
+        assertTrue(CARD_SHOULD_BE_INTRODUCE_MESSAGE, atm.insertCard(new Card("1", "2"), "2"));
+        atm.changePin("2", NEW_PIN);
+        assertEquals("There should be an success message as ping changed successfully", "Pin changed successfully", outContent.toString().trim());
     }
 
     @Test
@@ -66,22 +60,17 @@ public class AtmTest {
 
     @Test
     public void testWithdrawWhenCardInsertedButNotEnoughFounds() {
-        if (atm.insertCard(new Card("1", "2"), "2")) {
-            atm.withdraw(20000D);
-            assertEquals("There should be an error message as the requested amount is greater than the current balance", "The amount is bigger than account balance", outContent.toString().trim());
-        } else {
-            fail(CARD_SHOULD_BE_INTRODUCE_MESSAGE);
-        }
+        assertTrue(CARD_SHOULD_BE_INTRODUCE_MESSAGE, atm.insertCard(new Card("1", "2"), "2"));
+        atm.withdraw(20000D);
+        assertEquals("There should be an error message as the requested amount is greater than the current balance", "The amount is bigger than account balance", outContent.toString().trim());
     }
 
     @Test
     public void testWithdrawWhenCardInsertedAndEnoughFounds() {
-        if (atm.insertCard(new Card("1", "2"), "2")) {
-            atm.withdraw(20D);
-            assertEquals("There should be an success message as the transaction is executed successfully", "The amount withdrawn is " + 20D + " and the remaining balance is " + atm.getBank().getAccountByCardId("1").getBalance(), outContent.toString().trim());
-        } else {
-            fail(CARD_SHOULD_BE_INTRODUCE_MESSAGE);
-        }
+        assertTrue(CARD_SHOULD_BE_INTRODUCE_MESSAGE, atm.insertCard(new Card("1", "2"), "2"));
+        atm.withdraw(20D);
+        assertEquals("There should be an success message as the transaction is executed successfully", "The amount withdrawn is " + 20D + " and the remaining balance is " + atm.getBank().getAccountByCardId("1").getBalance(), outContent.toString().trim());
+        assertEquals("The balance should be reduced by 20.0", 980D, atm.getBank().getAccountByCardId("1").getBalance(), 0);
     }
 
     @Test
@@ -92,24 +81,23 @@ public class AtmTest {
 
     @Test
     public void testCheckMoneyWhenCardIntroduced() {
-        if (atm.insertCard(new Card("1", "2"), "2")) {
-            atm.checkMoney();
-            assertEquals("There should be an success message as the transaction is executed successfully", "The current balance is " + atm.getBank().getAccountByCardId("1").getBalance(), outContent.toString().trim());
-        } else {
-            fail(CARD_SHOULD_BE_INTRODUCE_MESSAGE);
-        }
+        assertTrue(CARD_SHOULD_BE_INTRODUCE_MESSAGE, atm.insertCard(new Card("1", "2"), "2"));
+        atm.checkMoney();
+        assertEquals("There should be an success message as the transaction is executed successfully", "The current balance is " + atm.getBank().getAccountByCardId("1").getBalance(), outContent.toString().trim());
     }
 
     @Test
     public void testInsertCardSuccessfully() {
         assertTrue(atm.insertCard(new Card("1", "2"), "2"));
+        assertEquals("The introduced card should be tha same", new Card("1", "2"), atm.getCard());
     }
 
     @Test
     public void testInsertCardWhenCardAlreadyInserted() {
         if (atm.insertCard(new Card("1", "2"), "2")) {
-            assertFalse(atm.insertCard(new Card("1", "2"), "2"));
+            assertFalse(atm.insertCard(new Card("2", "4"), "4"));
             assertEquals("There should be an error message as a card is already inserted", "Card already inserted", outContent.toString().trim());
+            assertEquals("The old card should be the same",new Card("1", "2"), atm.getCard());
         } else {
             fail(CARD_SHOULD_BE_INTRODUCE_MESSAGE);
         }

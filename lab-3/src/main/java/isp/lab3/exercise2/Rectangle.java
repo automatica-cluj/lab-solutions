@@ -1,12 +1,13 @@
 package isp.lab3.exercise2;
 
 public class Rectangle {
-    private int length = 2;
-    private int width = 1;
+    private final int length;
+    private final int width;
     private String color = "red";
 
     public Rectangle() {
-        // just to provide access to the default constructor
+        this.length = 2;
+        this.width = 1;
     }
 
     /**
@@ -50,7 +51,7 @@ public class Rectangle {
      * @return the perimeter
      */
     public int getPerimeter() {
-        return 2 * this.length + 2 * this.width;
+        return 2 * (this.length + this.width);
     }
 
     /**

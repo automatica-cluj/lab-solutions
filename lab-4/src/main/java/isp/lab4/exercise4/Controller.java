@@ -4,12 +4,12 @@ package isp.lab4.exercise4;
 public class Controller {
     private static final int NR_OF_SENSORS = 3;
 
-    TemperatureSensor[] temperatureSensors = new TemperatureSensor[NR_OF_SENSORS];
+    TemperatureSensor[] temperatureSensors;
     FireAlarm fireAlarm;
 
     public Controller(TemperatureSensor[] temperatureSensors, FireAlarm fireAlarm) {
         if (temperatureSensors.length == NR_OF_SENSORS) {
-            System.arraycopy(temperatureSensors, 0, this.temperatureSensors, 0, temperatureSensors.length);
+            this.temperatureSensors = temperatureSensors;
         } else {
             throw new IllegalArgumentException("You should provide an array containing exactly " + NR_OF_SENSORS + " elements");
         }

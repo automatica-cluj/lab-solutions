@@ -10,11 +10,10 @@ public class Exercise6 {
      * @return the generated vector
      */
     public static int[] generateVector(int n) {
-        int i;
         int[] x = new int[n];
         x[0] = 1;
         x[1] = 2;
-        for (i = 2; i < n; i++) {
+        for (int i = 2; i < n; i++) {
             x[i] = x[i - 1] * x[i - 2];
         }
         return x;

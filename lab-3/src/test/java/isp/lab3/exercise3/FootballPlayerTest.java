@@ -11,7 +11,7 @@ public class FootballPlayerTest {
     FootballPlayer footballPlayer3;
 
     @Before
-    public void setUP() {
+    public void setUp() {
         footballPlayer1 = new FootballPlayer("Lionel Messi", "FC Barcelona", 'M');
         footballPlayer2 = new FootballPlayer("Alex Morgan", "United States", 'F');
         footballPlayer3 = new FootballPlayer("ASD", "QWE", 'a');

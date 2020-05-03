@@ -10,7 +10,7 @@ public class RectangleTest {
     Rectangle rectangle2;
 
     @Before
-    public void setUP() {
+    public void setUp() {
         rectangle1 = new Rectangle(8, 9);
         rectangle2 = new Rectangle(6, 7, "green");
     }

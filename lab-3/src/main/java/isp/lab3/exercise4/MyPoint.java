@@ -85,7 +85,7 @@ public class MyPoint {
      * @return the distance between current {@link MyPoint} and another {@link MyPoint}
      */
     public double distance(MyPoint another) {
-        return Math.sqrt(Math.pow((double) another.getX() - (double) this.x, 2) + Math.pow((double) another.getY() - (double) this.y, 2) + Math.pow((double) another.getZ() - (double) this.z, 2));
+        return distance(another.getX(), another.getY(), another.getZ());
     }
 
 }

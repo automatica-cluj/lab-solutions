@@ -6,10 +6,10 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class FireAlarmTest {
-    FireAlarm fireAlarm;
+    private FireAlarm fireAlarm;
 
     @Before
-    public void setUP() {
+    public void setUp() {
         fireAlarm = new FireAlarm(false);
     }
 
