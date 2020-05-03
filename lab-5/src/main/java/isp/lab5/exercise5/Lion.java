@@ -1,7 +1,7 @@
 package isp.lab5.exercise5;
 
 public class Lion extends Animal implements Carnivorous {
-    private int chanceToHuntSuccessfully;
+    private final int chanceToHuntSuccessfully;
 
     public Lion(String name, int age, int chanceToHuntSuccessfully) {
         super(name, age);

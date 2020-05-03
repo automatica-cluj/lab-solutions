@@ -1,11 +1,20 @@
 package isp.lab3.exercise3;
 
 public class FootballPlayer {
-    private String name;
+    private final String name;
     private String team;
     private int goalsScored;
-    private char gender;
+    private final char gender;
 
+    /**
+     * Constructor which sets the name and the team for a {@link FootballPlayer},
+     * initialize the goals scored to zero and sets the gender if the given gender is
+     * either 'M' or 'F', otherwise set the gender to 'M'
+     *
+     * @param name   the name of the player
+     * @param team   the name of the team
+     * @param gender the gender which should be either 'M' or 'F'
+     */
     public FootballPlayer(String name, String team, char gender) {
         this.name = name;
         this.team = team;

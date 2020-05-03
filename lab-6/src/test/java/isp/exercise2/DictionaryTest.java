@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 
 public class DictionaryTest {
     @Before
-    public void setUp() {
+    public void setUP() {
         // clean up the dictionary before each test
         Dictionary.getInstance().clearDictionary();
     }
