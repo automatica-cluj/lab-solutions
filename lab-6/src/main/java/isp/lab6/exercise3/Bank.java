@@ -1,11 +1,11 @@
-package isp.lab5.exercise1;
+package isp.lab6.exercise3;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Bank {
-    private final Account[] accounts;
+    private final ArrayList<Account> accounts;
 
-    public Bank(Account[] accounts) {
+    public Bank(ArrayList<Account> accounts) {
         this.accounts = accounts;
     }
 
@@ -20,8 +20,8 @@ public class Bank {
      * @return the found {@link Account} having the card with the specified cardId or null if no account found
      */
     public Account getAccountByCardId(String cardId) {
-        if (this.accounts != null && this.accounts.length > 0) {
-            return Arrays.stream(accounts).filter(account -> account.getCard().getCardId().equals(cardId)).findFirst().orElse(null);
+        if (this.accounts != null && this.accounts.size() > 0) {
+            return accounts.stream().filter(account -> account.getCard().getCardId().equals(cardId)).findFirst().orElse(null);
         } else {
             return null;
         }
