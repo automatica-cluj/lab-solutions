@@ -1,5 +1,8 @@
 package isp.lab5.exercise1;
 
+/**
+ * Superclass for all Transactions
+ */
 public abstract class Transaction {
     protected Account account;
 

@@ -1,7 +1,7 @@
 package isp.lab5.exercise5;
 
 public class Dear extends Animal implements Herbivorous {
-    private int chanceToRunSuccessfully;
+    private final int chanceToRunSuccessfully;
 
     public Dear(String name, int age, int chanceToRunSuccessfully) {
         super(name, age);

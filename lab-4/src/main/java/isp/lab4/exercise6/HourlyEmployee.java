@@ -2,8 +2,8 @@ package isp.lab4.exercise6;
 
 public class HourlyEmployee extends Employee {
 
-    private double wage;
-    private double hours;
+    private final double wage;
+    private final double hours;
 
     public HourlyEmployee(String firstName, String lastName, double wage, double hours) {
         super(firstName, lastName);

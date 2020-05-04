@@ -3,7 +3,7 @@ package isp.lab5.exercise3;
 public class ProxyVideo implements Playable {
 
     private Playable video;
-    private VideoType videoType;
+    private final VideoType videoType;
     private String fileName;
 
     public ProxyVideo(String fileName, VideoType videoType) {

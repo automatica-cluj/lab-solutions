@@ -2,7 +2,7 @@ package isp.lab5.exercise5;
 
 public class Elk extends Animal implements Herbivorous {
 
-    private int chanceToRunSuccessfully;
+    private final int chanceToRunSuccessfully;
 
     public Elk(String name, int age, int chanceToRunSuccessfully) {
         super(name, age);

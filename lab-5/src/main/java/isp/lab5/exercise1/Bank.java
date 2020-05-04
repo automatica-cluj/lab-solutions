@@ -3,13 +3,10 @@ package isp.lab5.exercise1;
 import java.util.Arrays;
 
 public class Bank {
-    private Account[] accounts;
+    private final Account[] accounts;
 
     public Bank(Account[] accounts) {
         this.accounts = accounts;
-    }
-
-    public Bank() {
     }
 
     public String executeTransaction(Transaction transaction) {

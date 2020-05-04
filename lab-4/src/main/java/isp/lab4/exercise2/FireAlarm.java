@@ -3,6 +3,11 @@ package isp.lab4.exercise2;
 public class FireAlarm {
     private boolean active;
 
+    /**
+     * Constructor which initialize the {@link FireAlarm} as active or inactive
+     *
+     * @param active true if the alarm is active or false otherwise
+     */
     public FireAlarm(boolean active) {
         this.active = active;
     }
@@ -17,10 +22,8 @@ public class FireAlarm {
 
     @Override
     public String toString() {
-        if (this.active) {
-            return "FireAlarm is active";
-        } else {
-            return "FireAlarm isn't active";
-        }
+        return "FireAlarm{" +
+                "active=" + active +
+                '}';
     }
 }

@@ -2,7 +2,7 @@ package isp.lab5.exercise3;
 
 public class ColorVideo implements Playable {
 
-    private String fileName;
+    private final String fileName;
 
     public ColorVideo(String fileName) {
         this.fileName = fileName;

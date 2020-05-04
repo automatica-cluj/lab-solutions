@@ -26,9 +26,15 @@ public class Jungle {
         this.carnivores = carnivores;
     }
 
+    /**
+     * This method remove an {@link Herbivorous} from the herbivores at the corresponding index
+     *
+     * @param index position of the {@link Herbivorous} in herbivores array
+     */
     public void removeAnimalFromHerbivores(int index) {
         Herbivorous[] herbivorousArray = new Herbivorous[this.getHerbivores().length - 1];
-        for (int i = 0, k = 0; i < this.getHerbivores().length; i++) {
+        int k = 0;
+        for (int i = 0; i < this.getHerbivores().length; i++) {
             if (i == index) {
                 continue;
             }
@@ -37,9 +43,15 @@ public class Jungle {
         this.setHerbivores(herbivorousArray);
     }
 
+    /**
+     * This method remove an {@link Carnivorous} from the carnivores at the corresponding index
+     *
+     * @param index position of the {@link Carnivorous} in carnivores array
+     */
     public void removeAnimalFromCarnivores(int index) {
         Carnivorous[] carnivoreArray = new Carnivorous[this.getCarnivores().length - 1];
-        for (int i = 0, k = 0; i < this.getCarnivores().length; i++) {
+        int k = 0;
+        for (int i = 0; i < this.getCarnivores().length; i++) {
             if (i == index) {
                 continue;
             }

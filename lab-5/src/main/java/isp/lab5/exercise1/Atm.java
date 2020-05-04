@@ -1,8 +1,9 @@
 package isp.lab5.exercise1;
 
 public class Atm {
+    protected static final String INSERT_CARD_MESSAGE = "Please insert the card";
     private Card card;
-    private Bank bank;
+    private final Bank bank;
 
     public Atm(Bank bank) {
         this.bank = bank;
@@ -12,7 +13,7 @@ public class Atm {
         if (this.card != null) {
             System.out.println(bank.executeTransaction(new ChangePin(oldPin, newPin, bank.getAccountByCardId(this.card.getCardId()))));
         } else {
-            System.out.println("Please insert the card");
+            System.out.println(INSERT_CARD_MESSAGE);
         }
     }
 
@@ -20,7 +21,7 @@ public class Atm {
         if (this.card != null) {
             System.out.println(bank.executeTransaction(new WithdrawMoney(amount, bank.getAccountByCardId(this.card.getCardId()))));
         } else {
-            System.out.println("Please insert the card");
+            System.out.println(INSERT_CARD_MESSAGE);
         }
     }
 
@@ -28,7 +29,7 @@ public class Atm {
         if (this.card != null) {
             System.out.println(bank.executeTransaction(new CheckMoney(bank.getAccountByCardId(this.card.getCardId()))));
         } else {
-            System.out.println("Please insert the card");
+            System.out.println(INSERT_CARD_MESSAGE);
         }
     }
 
@@ -48,5 +49,13 @@ public class Atm {
 
     public void removeCard() {
         this.card = null;
+    }
+
+    public Bank getBank() {
+        return bank;
+    }
+
+    public Card getCard() {
+        return card;
     }
 }

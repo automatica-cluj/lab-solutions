@@ -1,52 +1,100 @@
 package isp.lab3.exercise5;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class VendingMachine {
-    private List<Product> products;
-    private int credit;
+    private final String[] products;
+    private final double[] prices;
+    private double credit;
 
+    /**
+     * Constructor which initialize the vending machine with some products and 0 credit
+     */
     public VendingMachine() {
         this.credit = 0;
-        this.products = new ArrayList<>();
+        this.products = new String[]{
+                "Cola",
+                "Sprite",
+                "Fanta",
+                "Mirinda",
+                "Schweppes"
+        };
+        this.prices = new double[]{
+                4.00D,
+                4.50D,
+                4.50D,
+                3.50D,
+                5.00D
+        };
     }
 
+    /**
+     * Display the desired product by id if the product exists and the amount of credit required for that product is inserted in vending machine or print an error message
+     *
+     * @param id the id of the desired product
+     * @return a {@link String} containing the name of desired product or some error message
+     */
     public String selectProduct(int id) {
-        for (Product product : products) {
-            if (product != null && product.getId() == id) {
-                return product.toString();
+
+        if (id < this.products.length && id >= 0) {
+            if (this.credit >= this.prices[id]) {
+                this.credit -= this.prices[id];
+                return this.products[id];
             }
+            return "Insufficient founds";
+        } else {
+            return "The product with id: " + id + " is not available";
         }
-        return "The product with id: " + id + " is not available";
     }
 
-    public int displayCredit() {
+    /**
+     * Return the current credit from the vending machine
+     * Works as a getter for credit
+     *
+     * @return the current credit
+     */
+    public double displayCredit() {
         return this.credit;
     }
 
-    public void insertCoin(int value) {
+    /**
+     * Insert some coins into vending machine if the value is positive
+     *
+     * @param value the amount of coins to be inserted
+     */
+    public void insertCoin(double value) {
         if (value >= 0) {
             this.credit += value;
+        } else {
+            System.out.println("You can not take out money from vending machine");
         }
     }
 
+    /**
+     * Returns a list containing all products from vending machine
+     *
+     * @return list of products
+     */
     public String displayProducts() {
-        return products.toString();
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < this.products.length; i++) {
+            stringBuilder.append(i).append(" ").append(this.products[i]).append(" -> ").append(this.prices[i]).append("\n");
+        }
+        return stringBuilder.toString();
     }
 
+    /**
+     * Display a message that represents a list of options to be displayed to a user
+     *
+     * @return list of options
+     */
     public String userMenu() {
-        return "displayCredit() \n selectProduct(int id) \n insertCoin(int value) \n displayProducts()";
+        return "1 -> Display credit\n2 -> Select product by id\n3 -> Insert coin \n4 -> Display products \n5 -> Exit\n";
     }
 
-    public void initialize() {
-        this.products.add(new Product(1, "Apple"));
-        this.products.add(new Product(2, "Cola"));
-        this.products.add(new Product(3, "Sprite"));
-        this.products.add(new Product(4, "7 Days"));
-        this.products.add(new Product(5, "Water"));
-        this.products.add(new Product(6, "Snickers"));
-        this.products.add(new Product(7, "Rafaelo"));
+    public String[] getProducts() {
+        return products;
     }
 
+    public double[] getPrices() {
+        return prices;
+    }
 }

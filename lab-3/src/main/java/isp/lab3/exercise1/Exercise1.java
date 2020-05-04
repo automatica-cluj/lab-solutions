@@ -10,5 +10,7 @@ public class Exercise1 {
         System.out.println(tree.getHeight());
         tree.grow(10);
         System.out.println(tree);
+        tree.grow(-1);
+        System.out.println(tree);
     }
 }

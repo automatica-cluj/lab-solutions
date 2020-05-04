@@ -1,8 +1,5 @@
 package isp.lab4.exercise3;
 
-import isp.lab4.exercise1.TemperatureSensor;
-import isp.lab4.exercise2.FireAlarm;
-
 public class Controller {
 
     TemperatureSensor temperatureSensor;
@@ -24,12 +21,17 @@ public class Controller {
         this.fireAlarm = fireAlarm;
     }
 
+    /**
+     * Handle system functionality<br>
+     * Turn the alarm ON if the temperature sensor value is greater than 50
+     */
     public void controlStep() {
         if (getTemperatureSensor().getValue() > 50) {
             getFireAlarm().setActive(true);
+            System.out.println("Fire alarm started");
         } else {
             getFireAlarm().setActive(false);
+            System.out.println("Fire alarm not started");
         }
-        System.out.println(getFireAlarm() + " in " + getTemperatureSensor().getLocation());
     }
 }
