@@ -29,8 +29,11 @@ public class Sensor {
      * @return Sorted sensorReadings by date and time
      */
     public List<SensorReading> getSensorReadingsSortedByDateAndTime() {
-        Collections.sort(this.sensorReadings);
-        return this.sensorReadings;
+        if (sensorReadings != null) {
+            Collections.sort(this.sensorReadings);
+            return this.sensorReadings;
+        }
+        return null;
     }
 
     /**
@@ -39,8 +42,11 @@ public class Sensor {
      * @return Sorted sensorReadings by value
      */
     public List<SensorReading> getSensorReadingsSortedByValue() {
-        this.sensorReadings.sort(new SensorReading.ValueComparator());
-        return this.sensorReadings;
+        if (sensorReadings != null) {
+            this.sensorReadings.sort(new SensorReading.ValueComparator());
+            return this.sensorReadings;
+        }
+        return null;
     }
 
     /**

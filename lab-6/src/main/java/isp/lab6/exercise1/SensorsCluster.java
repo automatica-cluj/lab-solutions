@@ -1,10 +1,11 @@
 package isp.lab6.exercise1;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SensorsCluster {
-    private final List<Sensor> sensors;
+    private List<Sensor> sensors;
 
     public SensorsCluster(List<Sensor> sensors) {
         this.sensors = sensors;
@@ -22,6 +23,9 @@ public class SensorsCluster {
      * @return the newly added {@link Sensor} or null if operation fails
      */
     public Sensor addSensor(String sensorId, SensorType sensorType) {
+        if (this.sensors == null) {
+            sensors = new ArrayList<>();
+        }
         for (Sensor sensor : this.sensors) {
             if (sensor.getId().equals(sensorId)) {
                 return null;
@@ -42,10 +46,9 @@ public class SensorsCluster {
      */
     public boolean writeSensorReading(String sensorId, double value, LocalDateTime dateTime) {
         if (this.sensors != null) {
-            for (Sensor sensor : this.sensors) {
-                if (sensor.getId().equals(sensorId)) {
-                    return sensor.addSensorReading(new SensorReading(dateTime, value));
-                }
+            Sensor existingSensor = getSensorById(sensorId);
+            if (existingSensor != null){
+                return existingSensor.addSensorReading(new SensorReading(dateTime, value));
             }
         }
         return false;

@@ -57,9 +57,9 @@ public class SensorReading implements Comparable<SensorReading> {
 
         @Override
         public int compare(SensorReading sensorReading1, SensorReading sensorReading2) {
-            if (sensorReading1.getValue() - sensorReading2.getValue() > 0.01) {
+            if (sensorReading1.getValue() > sensorReading2.getValue()) {
                 return 1;
-            } else if (sensorReading1.getValue() - sensorReading2.getValue() < 0.01) {
+            } else if (sensorReading1.getValue() < sensorReading2.getValue()) {
                 return -1;
             }
             return 0;

@@ -7,20 +7,22 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static isp.lab6.exercise1.SensorType.*;
+import static isp.lab6.exercise1.SensorType.PRESSURE;
+import static isp.lab6.exercise1.SensorType.TEMPERATURE;
 import static java.time.LocalDateTime.now;
 import static org.junit.Assert.*;
 
 public class SensorTest {
-    SensorsCluster sensorsCluster;
-    List<SensorReading> sortedSensorReadingsByDateAndTime = new ArrayList<>();
-    List<SensorReading> sortedSensorReadingsByValue = new ArrayList<>();
-    LocalDateTime someDateAndTime = LocalDateTime.of(2020, 5, 4, 12, 56, 30);
+    private SensorsCluster sensorsCluster;
+    private final List<SensorReading> sortedSensorReadingsByDateAndTime = new ArrayList<>();
+    private final List<SensorReading> sortedSensorReadingsByValue = new ArrayList<>();
+    private final LocalDateTime someDateAndTime = LocalDateTime.of(2020, 5, 4, 12, 56, 30);
 
     @Before
     public void setUp() {
         sensorsCluster = new SensorsCluster(new ArrayList<>());
         sensorsCluster.addSensor("1", TEMPERATURE);
+        sensorsCluster.addSensor("2", PRESSURE);
 
         sensorsCluster.writeSensorReading("1", 42D, someDateAndTime.plusMinutes(2));
         sensorsCluster.writeSensorReading("1", 44D, someDateAndTime.plusMinutes(1));
@@ -44,6 +46,15 @@ public class SensorTest {
     }
 
     @Test
+    public void testGetSensorReadingsSortedByDateAndTimeShouldReturnNullIfTheListIsNull() {
+        //when
+        List<SensorReading> ourSortedSensorReadingsByDateAndTime = sensorsCluster.getSensors().get(1).getSensorReadingsSortedByDateAndTime();
+
+        //then
+        assertNull("Each object from first list should be the same as the one in the other list", ourSortedSensorReadingsByDateAndTime);
+    }
+
+    @Test
     public void testGetSensorReadingsSortedByValue() {
 
         //given
@@ -58,6 +69,15 @@ public class SensorTest {
         for (int i = 0; i < ourSortedSensorReadingsByValue.size(); i++) {
             assertEquals("Each object from first list should be the same as the one in the other list", ourSortedSensorReadingsByValue.get(i), sortedSensorReadingsByValue.get(i));
         }
+    }
+
+    @Test
+    public void testGetSensorReadingsSortedByValueShouldReturnNullIfTheListIsNull() {
+        //when
+        List<SensorReading> ourSortedSensorReadingsByValue = sensorsCluster.getSensors().get(1).getSensorReadingsSortedByValue();
+
+        //then
+        assertNull("The list should be null because no SensorReading was added to the current sensor", ourSortedSensorReadingsByValue);
     }
 
     @Test

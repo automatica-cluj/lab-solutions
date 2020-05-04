@@ -11,8 +11,8 @@ import static isp.lab6.exercise1.SensorType.*;
 import static org.junit.Assert.*;
 
 public class SensorsClusterTest {
-    LocalDateTime someDateAndTime = LocalDateTime.of(2020, 5, 4, 12, 56, 30);
-    SensorsCluster sensorsCluster;
+    private final LocalDateTime someDateAndTime = LocalDateTime.of(2020, 5, 4, 12, 56, 30);
+    private SensorsCluster sensorsCluster;
 
 
     @Before
@@ -32,6 +32,19 @@ public class SensorsClusterTest {
         //then
         assertEquals("The objects should be the same", sensor, sensorAdded);
         assertNull("The object should be because another sensor with same id already exists", sensorAddedSecondTime);
+    }
+
+    @Test
+    public void testAddSensorShouldShouldWorkWhenSensorsIsNull() {
+        //given
+        sensorsCluster = new SensorsCluster(null);
+        Sensor sensor = new Sensor(PRESSURE, "1");
+
+        //when
+        Sensor sensorAdded = sensorsCluster.addSensor("1", PRESSURE);
+
+        //then
+        assertEquals("The objects should be the same", sensor, sensorAdded);
     }
 
     @Test
@@ -79,7 +92,7 @@ public class SensorsClusterTest {
     }
 
     @Test
-    public void testGetSensorByIdShouldNice() {
+    public void testGetSensorByIdShouldWorkNice() {
         //given
         Sensor sensor = sensorsCluster.addSensor("1", TEMPERATURE);
 
