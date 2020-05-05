@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeserializationService {
-    private final List<AccessLog> accessLogs = new ArrayList<>();
-
-    public List<AccessLog> getAccessLogs() {
-        return accessLogs;
+    private DeserializationService() {
+        // just to hide access to the constructor
     }
 
     /**
@@ -16,7 +14,8 @@ public class DeserializationService {
      * deserialize the content of the files to an {@link AccessLog} and
      * add that {@link AccessLog} to accessLogs
      */
-    public void deserializeFiles() {
+    public static List<AccessLog> deserializeFiles() {
+        final List<AccessLog> accessLogs = new ArrayList<>();
         File folder = new File("lab-8/data");
         String[] folderFiles = folder.list();
 
@@ -26,7 +25,7 @@ public class DeserializationService {
                      final ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
 
                     final AccessLog accessLogFromFile = (AccessLog) objectInputStream.readObject();
-                    this.accessLogs.add(accessLogFromFile);
+                    accessLogs.add(accessLogFromFile);
 
                 } catch (FileNotFoundException e) {
                     System.err.println("The file was not found or can not be created because: " + e.getMessage());
@@ -37,5 +36,7 @@ public class DeserializationService {
         } else {
             System.err.println("Not a valid directory: " + folder.toString());
         }
+
+        return accessLogs;
     }
 }

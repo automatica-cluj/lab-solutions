@@ -115,10 +115,12 @@ public class DoorLockController implements ControllerInterface {
                 System.out.println("Directory : " + directoryToSave.toString() + " created successfully");
             } else {
                 System.out.println("Could not create directory: " + directoryToSave.toString());
+                System.out.println("Created access log will not be serialized to the file");
+                return accessLog;
             }
         }
 
-        final String outputFileName = "./data/accesslog-{" + Instant.now().getNano() + "}.dat";
+        final String outputFileName = "./data/accesslog-" + Instant.now().getNano() + ".dat";
 
         try (final FileOutputStream fileOutputStream = new FileOutputStream(outputFileName);
              final ObjectOutputStream outputStream = new ObjectOutputStream(fileOutputStream)) {
