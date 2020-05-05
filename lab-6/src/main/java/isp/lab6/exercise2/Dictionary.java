@@ -22,10 +22,6 @@ public class Dictionary {
         return INSTANCE;
     }
 
-    public static Map<Word, WordDescription> getDictionary() {
-        return dictionary;
-    }
-
     /**
      * Add new word in dictionary
      *
@@ -104,6 +100,14 @@ public class Dictionary {
      */
     public void clearDictionary() {
         dictionary.clear();
+    }
+
+    /**
+     * Get number of words from dictionary
+     * @return number of words
+     */
+    public int getNumberOfWords() {
+        return dictionary.size();
     }
 
     /**
