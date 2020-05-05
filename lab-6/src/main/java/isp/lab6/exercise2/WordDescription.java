@@ -1,6 +1,7 @@
 package isp.lab6.exercise2;
 
 import java.util.List;
+import java.util.Objects;
 
 public class WordDescription {
     private String description;
@@ -25,6 +26,20 @@ public class WordDescription {
 
     public void setSynonyms(List<Word> synonyms) {
         this.synonyms = synonyms;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WordDescription that = (WordDescription) o;
+        return Objects.equals(description, that.description) &&
+                Objects.equals(synonyms, that.synonyms);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(description, synonyms);
     }
 
     @Override

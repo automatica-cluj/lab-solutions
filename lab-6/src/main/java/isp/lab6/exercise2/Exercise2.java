@@ -1,5 +1,7 @@
 package isp.lab6.exercise2;
 
+import isp.lab6.exercise2.utils.WordUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,51 +14,51 @@ public class Exercise2 {
         final WordDescription firstBookDescription = new WordDescription("piece of paper", null);
         final boolean isFirstBookAdded = dictionary.addWord(firstBook, firstBookDescription);
         System.out.println("Result = " + isFirstBookAdded);
-        System.out.println("Dictionary after add = " + Dictionary.getDictionary());
+        System.out.println("Dictionary size after add = " + Dictionary.getInstance().getNumberOfWords());
 
         // add book with same value (should override)
         final Word secondBook = new Word("book");
         final WordDescription secondBookDescription = new WordDescription("piece of paper", null);
         final boolean isSecondBookAdded = dictionary.addWord(secondBook, secondBookDescription);
         System.out.println("Result = " + isSecondBookAdded);
-        System.out.println("Dictionary after add = " + Dictionary.getDictionary());
+        System.out.println("Dictionary size after add = " + Dictionary.getInstance().getNumberOfWords());
 
         // add new book with synonyms which are not in the dictionary
         final Word thirdBook = new Word("thirdBook");
-        final WordDescription thirdBookDescription = new WordDescription("thirdBookDescription", createListOfWords(new Word("not found")));
+        final WordDescription thirdBookDescription = new WordDescription("thirdBookDescription", WordUtils.createListOfWords(new Word("not found")));
         final boolean isThirdBookAdded = dictionary.addWord(thirdBook, thirdBookDescription);
         System.out.println("Result = " + isThirdBookAdded);
-        System.out.println("Dictionary after add = " + Dictionary.getDictionary());
+        System.out.println("Dictionary size after add = " + Dictionary.getInstance().getNumberOfWords());
 
         // add new book with synonyms found in the dictionary
         final Word fourthWord = new Word("fourthWord");
-        final WordDescription fourthDescription = new WordDescription("fourthBookDescription", createListOfWords(firstBook));
+        final WordDescription fourthDescription = new WordDescription("fourthBookDescription", WordUtils.createListOfWords(firstBook));
         final boolean isFourthBookAdded = dictionary.addWord(fourthWord, fourthDescription);
         System.out.println("Result = " + isFourthBookAdded);
-        System.out.println("Dictionary after add = " + Dictionary.getDictionary());
+        System.out.println("Dictionary size after add = " + Dictionary.getInstance().getNumberOfWords());
 
         // add new book with more than one synonym
         final Word fifthWord = new Word("fifthWord");
-        final WordDescription fifthDescription = new WordDescription("fifthBookDescription", createListOfWords(firstBook, fourthWord));
+        final WordDescription fifthDescription = new WordDescription("fifthBookDescription", WordUtils.createListOfWords(firstBook, fourthWord));
         final boolean isFifthBookAdded = dictionary.addWord(fifthWord, fifthDescription);
         System.out.println("Result = " + isFifthBookAdded);
-        System.out.println("Dictionary after add = " + Dictionary.getDictionary());
+        System.out.println("Dictionary size after add = " + Dictionary.getInstance().getNumberOfWords());
 
         // remove word that does not exist
         final Word sixthWord = new Word("not found word");
         final boolean isSixthWordDeleted = dictionary.deleteWord(sixthWord);
         System.out.println("Result = " + isSixthWordDeleted);
-        System.out.println("Dictionary after delete = " + Dictionary.getDictionary());
+        System.out.println("Dictionary size after delete = " + Dictionary.getInstance().getNumberOfWords());
 
         // remove word that exists but is not a synonym for other words (fifth word is not a synonym)
         final boolean isSeventhWordDeleted = dictionary.deleteWord(fifthWord);
         System.out.println("Result = " + isSeventhWordDeleted);
-        System.out.println("Dictionary after delete = " + Dictionary.getDictionary());
+        System.out.println("Dictionary size after delete = " + Dictionary.getInstance().getNumberOfWords());
 
         // remove word that exists and is used as synonym (firstWord)
         final boolean isEightWordDeleted = dictionary.deleteWord(firstBook);
         System.out.println("Result = " + isEightWordDeleted);
-        System.out.println("Dictionary after delete = " + Dictionary.getDictionary());
+        System.out.println("Dictionary size after delete = " + Dictionary.getInstance().getNumberOfWords());
 
         // search word which does not exist
         final WordDescription notFoundWord = dictionary.searchWord(new Word("not found word"));
@@ -76,22 +78,12 @@ public class Exercise2 {
 
         // find synonyms word with at least one synonym
         final Word seventhWord = new Word("seventhWord");
-        final WordDescription seventhWordDescription = new WordDescription("seventhWordDescription", createListOfWords(fourthWord));
+        final WordDescription seventhWordDescription = new WordDescription("seventhWordDescription", WordUtils.createListOfWords(fourthWord));
         final boolean isSeventhWordAdded = dictionary.addWord(seventhWord, seventhWordDescription);
         System.out.println("Result = " + isSeventhWordAdded);
-        System.out.println("Dictionary after add = " + Dictionary.getDictionary());
+        System.out.println("Dictionary size after add = " + Dictionary.getInstance().getNumberOfWords());
 
         final List<Word> worthWithSynonyms = dictionary.findSynonyms(new Word("seventhWord"));
         System.out.println("Result = " + worthWithSynonyms);
-    }
-
-    private static List<Word> createListOfWords(final Word... words) {
-        final List<Word> wordsList = new ArrayList<>();
-
-        for (Word word : words) {
-            wordsList.add(word);
-        }
-
-        return wordsList;
     }
 }
