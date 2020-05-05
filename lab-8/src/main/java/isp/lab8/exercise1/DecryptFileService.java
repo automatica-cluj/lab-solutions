@@ -9,9 +9,15 @@ public class DecryptFileService {
     private DecryptFileService() {
     }
 
+    /**
+     * This method decrypt a content of a file given bay the "path" param and saves the decrypted file at the same path but with the ".dec" termination
+     *
+     * @param path - it represents the path to the input file which have to be decrypted
+     */
     public static void decryptAndSaveContent(final String path) {
+        String decryptedFileName = path.substring(0, path.lastIndexOf('.')) + ".dec";
         try (final FileReader inputFileReader = new FileReader(path);
-             final FileWriter outputFileWriter = new FileWriter(path + ".dec")) {
+             final FileWriter outputFileWriter = new FileWriter(decryptedFileName)) {
 
             // read data
             int c;
@@ -20,9 +26,9 @@ public class DecryptFileService {
                 outputFileWriter.write(c + 1);
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.err.println("The file was not found or can not be created because: " + e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Some error occurs: " + e.getMessage());
         }
     }
 }

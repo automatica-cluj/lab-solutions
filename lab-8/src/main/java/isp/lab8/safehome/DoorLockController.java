@@ -98,36 +98,36 @@ public class DoorLockController implements ControllerInterface {
         return accessLogs;
     }
 
+    /**
+     * This method creates an {@link AccessLog} from the given data and
+     * store the new {@link AccessLog} in a file in /data directory
+     *
+     * @param tenant     the tenant who made the operation
+     * @param operation  the operation name
+     * @param errMessage the message which should be print
+     * @return newly created {@link AccessLog}
+     */
     private AccessLog createAccessLog(final String tenant, final String operation, final String errMessage) {
         final AccessLog accessLog = new AccessLog(tenant, LocalDateTime.now(), operation, this.door.getStatus(), errMessage);
         final File directoryToSave = new File("./data");
         if (!directoryToSave.exists()) {
-            directoryToSave.mkdir();
+            if (directoryToSave.mkdir()) {
+                System.out.println("Directory : " + directoryToSave.toString() + " created successfully");
+            } else {
+                System.out.println("Could not create directory: " + directoryToSave.toString());
+            }
         }
 
-        final String outputFileName = "./data/accesslog-" + Instant.now().toEpochMilli() + ".dat";
+        final String outputFileName = "./data/accesslog-{" + Instant.now().getNano() + "}.dat";
 
         try (final FileOutputStream fileOutputStream = new FileOutputStream(outputFileName);
              final ObjectOutputStream outputStream = new ObjectOutputStream(fileOutputStream)) {
 
             outputStream.writeObject(accessLog);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.err.println("The file was not found or can not be created because: " + e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try (final FileInputStream fileInputStream = new FileInputStream(outputFileName);
-             final ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
-            final AccessLog dataFromFile = (AccessLog) objectInputStream.readObject();
-
-            System.out.println("Data read = " + dataFromFile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            System.err.println("Some error occurs: " + e.getMessage());
         }
 
         return accessLog;
