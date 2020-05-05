@@ -9,9 +9,15 @@ public class EncryptFileService {
     private EncryptFileService() {
     }
 
+    /**
+     * This method encrypt a content of a file given bay the "path" param and saves the encrypted file at the same path but with the ".enc" termination
+     *
+     * @param path - it represents the path to the input file which have to be encrypted
+     */
     public static void encryptAndSaveContent(final String path) {
+        String encryptedFileName = path.substring(0, path.lastIndexOf('.')) + ".enc";
         try (final FileReader inputFileReader = new FileReader(path);
-             final FileWriter outputFileWriter = new FileWriter(path + ".enc")) {
+             final FileWriter outputFileWriter = new FileWriter(encryptedFileName)) {
 
             // read data
             int c;
@@ -20,9 +26,9 @@ public class EncryptFileService {
                 outputFileWriter.write(c - 1);
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.err.println("The file was not found or can not be created because: " + e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Some error occurs: " + e.getMessage());
         }
     }
 }
