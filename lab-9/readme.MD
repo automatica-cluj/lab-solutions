@@ -76,7 +76,7 @@ public class Client {
 3. Create UML class diagram of the program.   
 
 **Class diagram:**
-![alt text](./docs/ex1.png)
+![alt text](./docs/ex1.PNG)
 
 ## Exercise 2
 A system is composed of 1 controller and 3 sensor types (TEMPERATURE, HUMIDITY, PRESSURE). Each sensor has a `void readSensor()` method which, when executed will randomly generate a value. 
