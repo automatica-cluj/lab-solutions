@@ -7,6 +7,11 @@ public class ATC {
 
     private final List<Aircraft> aircraftList = new ArrayList<>();
 
+    /**
+     * Add a new {@link Aircraft} to the aircraftList and create a new {@link Aircraft} Thread and start it
+     *
+     * @param id the id of the new {@link Aircraft}
+     */
     public void addAircraft(String id) {
         Aircraft aircraft = new Aircraft(id);
         if (aircraftList.contains(aircraft)) {
@@ -17,8 +22,17 @@ public class ATC {
         }
     }
 
+    /**
+     * Search for an existing {@link Aircraft} and if found then send a command to the existing {@link Aircraft}
+     *
+     * @param aircraftId The id of the existing {@link Aircraft}
+     * @param cmd        the command to be sent to the existing {@link Aircraft}
+     */
     public void sendCommand(String aircraftId, AtcCommand cmd) {
-        Aircraft existingAircraft = aircraftList.stream().filter(aircraft -> aircraft.getId().equals(aircraftId)).findFirst().orElse(null);
+        Aircraft existingAircraft = aircraftList.stream()
+                .filter(aircraft -> aircraft.getId().equals(aircraftId))
+                .findFirst()
+                .orElse(null);
         if (existingAircraft != null) {
             existingAircraft.receiveAtcMessage(cmd);
         } else {
@@ -26,9 +40,12 @@ public class ATC {
         }
     }
 
+    /**
+     * Print the existing aircrafts
+     */
     public void showAircraft() {
-        for (Aircraft aircraftListIterator : aircraftList) {
-            System.out.println(aircraftListIterator.toString());
+        for (Aircraft aircraft : aircraftList) {
+            System.out.println(aircraft.toString());
         }
     }
 

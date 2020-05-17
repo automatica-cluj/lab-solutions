@@ -9,7 +9,6 @@ public class Aircraft implements Runnable {
 
     public Aircraft(String id) {
         this.id = id;
-        this.altitude = 0;
         this.state = AircraftState.ON_STAND;
     }
 
@@ -21,6 +20,9 @@ public class Aircraft implements Runnable {
         return altitude;
     }
 
+    /**
+     * Handle the lifecycle of an {@link Aircraft}
+     */
     @Override
     public void run() {
         while (!isLanded) {
@@ -44,6 +46,7 @@ public class Aircraft implements Runnable {
                 }
                 case ASCENDING: {
                     System.out.println("ASCENDING -> " + this);
+                    System.out.println("Altitude: " + altitude * 1000);
                     for (int i = 0; i <= altitude; i++) {
                         sleep(10_000L);
                     }
@@ -58,10 +61,12 @@ public class Aircraft implements Runnable {
                 }
                 case DESCENDING: {
                     System.out.println("DESCENDING -> " + this);
-                    for (int i = 0; i <= altitude; i++) {
+                    System.out.println("Altitude before descending: " + altitude * 1000);
+                    while (altitude > 0) {
                         sleep(10_000L);
+                        altitude--;
                     }
-                    System.out.println(this.getId() + " has landed ");
+                    System.out.println("Altitude after descending: " + altitude * 1000);
                     state = AircraftState.LANDED;
                     break;
                 }
@@ -77,6 +82,11 @@ public class Aircraft implements Runnable {
         }
     }
 
+    /**
+     * Make the current thread to sleep for a certain time
+     *
+     * @param millis time for thread to sleep
+     */
     private void sleep(Long millis) {
         try {
             Thread.sleep(millis);
@@ -85,6 +95,9 @@ public class Aircraft implements Runnable {
         }
     }
 
+    /**
+     * Set the current thread in the waiting mode
+     */
     private void blockThread() {
         synchronized (this) {
             try {
@@ -95,28 +108,35 @@ public class Aircraft implements Runnable {
         }
     }
 
+    /**
+     * Handle the receive of a command which can be to TakeOff or to Land
+     *
+     * @param atcCommand the command to be handled
+     */
     public void receiveAtcMessage(AtcCommand atcCommand) {
-        if (atcCommand instanceof TakeoffCommand) {
-            if (state.equals(AircraftState.ON_STAND)) {
-                synchronized (this) {
+        synchronized (this) {
+            if (atcCommand instanceof TakeoffCommand) {
+                if (state.equals(AircraftState.ON_STAND)) {
+
                     this.altitude = ((TakeoffCommand) atcCommand).getAltitude();
                     state = AircraftState.TAXING;
                     this.notify();
+
+                } else {
+                    System.out.println("Plane is not ON_STAND");
                 }
-            } else {
-                System.out.println("Plane is not ON_STAND");
-            }
-        } else if (atcCommand instanceof LandCommand) {
-            if (state.equals(AircraftState.CRUISING)) {
-                synchronized (this) {
+            } else if (atcCommand instanceof LandCommand) {
+                if (state.equals(AircraftState.CRUISING)) {
+
                     state = AircraftState.DESCENDING;
                     this.notify();
+
+                } else {
+                    System.out.println("Plane is not on CRUISING state");
                 }
             } else {
-                System.out.println("Plane is not on CRUISING state");
+                System.out.println("Bad command");
             }
-        } else {
-            System.out.println("Bad command");
         }
     }
 
