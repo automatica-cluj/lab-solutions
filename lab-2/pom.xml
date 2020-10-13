@@ -29,7 +29,7 @@
         <mainClass>isp.lab2.Example</mainClass>
         <!-- name appended to standard jar name to indicate shaded/executable version -->
         <shadedClassifierName>executable</shadedClassifierName>
-        <junit-version>4.12</junit-version>
+        <junit-version>4.13.1</junit-version>
         <java.compile-verison>1.8</java.compile-verison>
         <slf4j-version>1.7.25</slf4j-version>
     </properties>
